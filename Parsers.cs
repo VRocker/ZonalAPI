@@ -94,5 +94,27 @@ namespace ZonalAPI
 
             return false;
         }
+
+        private bool ParseMenuPageResponse(string resp)
+        {
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(resp)))
+                {
+                    var ser = new DataContractJsonSerializer(typeof(Responses.MenuPages.MenuPagesResponse));
+                    Responses.MenuPages.MenuPagesResponse response = (ser.ReadObject(stream) as Responses.MenuPages.MenuPagesResponse);
+
+                    Events.OnHandleMenuPageResponse(response);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Events.OnErrorOccurred(ex.Message);
+            }
+
+            return false;
+        }
     }
 }
