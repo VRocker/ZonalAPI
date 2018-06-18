@@ -12,21 +12,27 @@ namespace ZonalAPI.Responses
         [DataContract]
         public class MenuPagesResponse : ResponseBase
         {
+            [DataMember(Name = "display")]
             public Display display { get; set; }
+            [DataMember(Name = "canOrder")]
             public int canOrder { get; set; }
+            [DataMember(Name = "canPlaceOrder")]
             public int canPlaceOrder { get; set; }
+            [DataMember(Name = "waitTime")]
             public int waitTime { get; set; }
+            [DataMember(Name = "aztec")]
             public Aztec aztec { get; set; }
         }
 
         [DataContract]
         public class Display
         {
+            [DataMember(Name = "displayGroups")]
             public Displaygroup[] displayGroups { get; set; }
+            [DataMember(Name = "keywords")]
             public Keyword[] keywords { get; set; }
         }
 
-        [DataContract]
         public class Displaygroup
         {
             public string groupFooter { get; set; }
@@ -38,7 +44,6 @@ namespace ZonalAPI.Responses
             public string groupHeader { get; set; }
         }
 
-        [DataContract]
         public class Item
         {
             public Uispecificdata uiSpecificData { get; set; }
