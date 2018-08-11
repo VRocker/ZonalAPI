@@ -116,5 +116,27 @@ namespace ZonalAPI
 
             return false;
         }
+
+        private bool ParseTablesResponse(string resp)
+        {
+            try
+            {
+                using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(resp)))
+                {
+                    var ser = new DataContractJsonSerializer(typeof(Responses.Tables.TablesResponse));
+                    Responses.Tables.TablesResponse response = (ser.ReadObject(stream) as Responses.Tables.TablesResponse);
+
+                    Events.OnHandleTablesResponse(response);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Events.OnErrorOccurred(ex.Message);
+            }
+
+            return false;
+        }
     }
 }

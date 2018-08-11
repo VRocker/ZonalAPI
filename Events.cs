@@ -38,6 +38,11 @@ namespace ZonalAPI
         {
             public Responses.MenuPages.MenuPagesResponse MenuResponse { get; set; }
         }
+
+        public class TablesEventArgs : EventArgs
+        {
+            public Responses.Tables.TablesResponse TableResponse { get; set; }
+        }
         #endregion
 
         #region Delegates
@@ -48,6 +53,7 @@ namespace ZonalAPI
         public delegate void HandleHomePageResponse(object sender, HomePageEventArgs e);
         public delegate void HandleMenuListResponse(object sender, MenuListEventArgs e);
         public delegate void HandleMenuPageResponse(object sender, MenuPageEventArgs e);
+        public delegate void HandleTablesResponse(object sender, TablesEventArgs e);
         #endregion
 
         #region Events
@@ -58,6 +64,7 @@ namespace ZonalAPI
         public event HandleHomePageResponse EventHomePageResponse;
         public event HandleMenuListResponse EventMenuListResponse;
         public event HandleMenuPageResponse EventMenuPageResponse;
+        public event HandleTablesResponse EventTablesResponse;
         #endregion
 
         #region Calls
@@ -68,6 +75,7 @@ namespace ZonalAPI
         internal void OnHandleHomePageResponse(Responses.Home.HomeResponse obj) => EventHomePageResponse?.Invoke(this, new HomePageEventArgs() { HomeResponse = obj });
         internal void OnHandleMenuListResponse(Responses.Menus.MenusResponse obj) => EventMenuListResponse?.Invoke(this, new MenuListEventArgs() { MenuResponse = obj });
         internal void OnHandleMenuPageResponse(Responses.MenuPages.MenuPagesResponse obj) => EventMenuPageResponse?.Invoke(this, new MenuPageEventArgs() { MenuResponse = obj });
+        internal void OnHandleTablesResponse(Responses.Tables.TablesResponse obj) => EventTablesResponse?.Invoke(this, new TablesEventArgs() { TableResponse = obj });
         #endregion
     }
 }

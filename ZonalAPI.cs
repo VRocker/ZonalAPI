@@ -201,5 +201,32 @@ namespace ZonalAPI
 
             return ParseMenuPageResponse(apiResponse);
         }
+
+        public async Task<bool> GetTables(int venueId, int salesAreaId)
+        {
+            Requests.TablesRequest _req = new Requests.TablesRequest();
+            SetBaseAPIStuff(_req);
+            _req.VenueID = venueId;
+            _req.SiteID = venueId;
+            _req.SalesAreaID = salesAreaId;
+
+            Requests.ApiRequest<Requests.TablesRequest> _actualRequest = new Requests.ApiRequest<Requests.TablesRequest>();
+            _actualRequest.Request = _req;
+
+            string apiResponse = string.Empty;
+            try
+            {
+                apiResponse = await Utils.PostHTTPString(_baseUri, Utils.SerializeJson(_actualRequest));
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(apiResponse))
+                return false;
+
+            return ParseTablesResponse(apiResponse);
+        }
     }
 }
